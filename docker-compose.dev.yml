@@ -1,0 +1,23 @@
+services:
+  server:
+    build: ./server
+    ports:
+      - 5050:5000
+    volumes:
+      - ./server/src:/server/src
+    command: npm run dev
+  mongodb:
+    image: mongo
+    volumes:
+      - ./data:/data/db
+
+  client:
+    build: ./client
+    ports:
+      - 8080:3000
+    volumes:
+      - ./client/src:/client/src
+    environment:
+      - WDS_SOCKET_PORT=8080
+
+    command: npm  start
